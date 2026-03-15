@@ -7,8 +7,6 @@ pipeline {
                 sh '''
                 echo "outside docker"
                 ls -la
-                touch outside.txt
-                ls -la
                 '''
             }
         }
@@ -25,8 +23,6 @@ pipeline {
                 echo "inside docker"
                 ls -la
                 npm --version
-                touch inside.txt
-                ls -la
                 '''
             }
         }
@@ -35,6 +31,7 @@ pipeline {
     post{
         always {
             echo "I run every time, no matter what!"
+            cleanWs()
         }
         success {
             echo "Build successful! Sending notification..."
